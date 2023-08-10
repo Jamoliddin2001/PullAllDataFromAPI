@@ -1,0 +1,57 @@
+version: '2.0'
+
+services:
+
+    # PHP Service
+    php:
+        build:
+            context: .
+            dockerfile: ./dockerfiles/php/Dockerfile
+        volumes:
+            - ./:/var/www
+            - ./dockerfiles/php/supervisor.conf:/etc/supervisord.conf
+        working_dir: /var/www
+        networks:
+            - app-network
+
+
+    # Nginx Service
+    webserver:
+        image: nginx
+        container_name: webserver_pull_all_data
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./nginx/conf.d/:/etc/nginx/conf.d
+            - ./ssl_certs/sdmtm.tj.crt:/etc/nginx/ssl_certs/sdmtm.tj.crt:ro
+            - ./ssl_certs/sdmtm.tj.key:/etc/nginx/ssl_certs/sdmtm.tj.key:ro
+        networks:
+            - app-network
+
+    # MySQLDb Service
+    db:
+        image: mariadb:10.5
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: ${DB_DATABASE}
+        ports:
+            - 3306:3306
+        volumes:
+            - ./var/lib/mysql/data:/var/lib/postgres/data
+        networks:
+            - app-network
+
+# Docker Networks
+networks:
+    app-network:
+        driver: bridge
+
+
+
+
+
+
+
+
