@@ -1,0 +1,41 @@
+[ca_extensions]
+basicConstraints=critical, CA:TRUE
+keyUsage=critical, keyCertSign, cRLSign, digitalSignature, nonRepudiation
+subjectKeyIdentifier=hash
+authorityInfoAccess=caIssuers;URI:https://mtm.tj
+
+[macos_auth_cert_extensions]
+basicConstraints=critical, CA:FALSE
+keyUsage=critical, digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+authorityInfoAccess=caIssuers;URI:https://fardo.tj
+
+[gpg_cert_extensions]
+basicConstraints=critical, CA:FALSE
+keyUsage=critical, digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+extendedKeyUsage=emailProtection
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+authorityInfoAccess=caIssuers;URI:https://fardo.tj
+
+[user_cert_extensions]
+basicConstraints=critical, CA:FALSE
+keyUsage=critical, keyEncipherment, dataEncipherment, keyAgreement
+extendedKeyUsage=clientAuth
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+authorityInfoAccess=caIssuers;URI:https://fardo.tj
+
+[server_cert_extensions]
+basicConstraints=critical, CA:FALSE
+keyUsage=critical, keyEncipherment, dataEncipherment, keyAgreement
+extendedKeyUsage=serverAuth
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+authorityInfoAccess=caIssuers;URI:https://mtm.tj
+subjectAltName=@alt_names
+
+[alt_names]
+DNS.1 = sd.mtm.tj
+DNS.2 = mtm.tj
